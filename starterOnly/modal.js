@@ -23,8 +23,19 @@ const inputLocation = document.querySelectorAll('input[name="location"]');
 const inputCheckbox1 = document.querySelector('#checkbox1');
 const inputCheckbox2 = document.querySelector('#checkbox2');
 
-// functions Modal Form ----------------------
+// launch modal event ------------------------
 
+modalBtn.forEach((btn) => btn.addEventListener('click', launchModal));
+modalBody.addEventListener('click', cleanInput);
+closeBtn.addEventListener('click', function() {
+	modalbg.style.display = 'none';
+});
+
+// launch modal form -------------------------
+
+function launchModal() {
+	modalbg.style.display = 'block';
+}
 function validInput(input) {
 	input.style.border = '2px solid green';
 }
@@ -32,24 +43,49 @@ function invalidInput(input) {
 	input.style.border = '2px solid red';
 }
 
-// launch modal event ------------------------
-modalBtn.forEach((btn) => btn.addEventListener('click', launchModal));
-
-// launch modal form -------------------------
-function launchModal() {
-	modalbg.style.display = 'block';
+function cleanInput() {
+	inputFirstName.style.border = 'none';
+	inputLastName.style.border = 'none';
+	inputEmail.style.border = 'none';
+	inputBirthday.style.border = 'none';
+	inputQuantity.style.border = 'none';
 }
 
-// close modal form --------------------------
-closeBtn.addEventListener('click', () => {
-	modalbg.style.display = 'none';
+// ---------------------------Modal Form -------------------------------
+
+// Modal firstName Input ---------------------
+
+inputFirstName.addEventListener('input', function() {
+	validFirstName(this);
 });
 
-// Modal Form -------------------------------
+const validFirstName = function(acceptFirstName) {
+	if (acceptFirstName.value) {
+		validInput(inputFirstName);
+	} else if (!acceptFirstName.value) {
+		alert('Veuillez renseigner un prénom');
+		invalidInput(inputFirstName);
+	}
+};
 
-// Modal Email Form -------------------------------
+// Modal lastName Input -----------------------
 
-form.email.addEventListener('change', function() {
+inputLastName.addEventListener('input', function() {
+	validLastName(this);
+});
+
+const validLastName = function(acceptLastName) {
+	if (acceptLastName.value) {
+		validInput(inputLastName);
+	} else if (!acceptLastName.value) {
+		alert('Veuillez renseigner un nom');
+		invalidInput(inputLastName);
+	}
+};
+
+// Modal Email Input -------------------------------
+
+inputEmail.addEventListener('change', function() {
 	validEmail(this);
 });
 
@@ -58,8 +94,78 @@ const validEmail = function(acceptEmail) {
 
 	if (emailRegExp.test(acceptEmail.value)) {
 		validInput(inputEmail);
+		return true;
 	} else {
-		alert('Adresse non valide');
+		alert('Adresse email non valide');
 		invalidInput(inputEmail);
+		return false;
+	}
+};
+
+// Modal Birthday Input -----------------------
+
+inputBirthday.addEventListener('change', function() {
+	validBirthdate(this);
+});
+
+const validBirthdate = function(acceptBirthdate) {
+	if (acceptBirthdate.value) {
+		validInput(inputBirthday);
+	} else {
+		alert("Veuillez insérer une date d'anniversaire");
+		invalidInput(inputBirthday);
+	}
+};
+
+// Modal Quantity Input -----------------------
+
+inputQuantity.addEventListener('change', function() {
+	validQuantity(this);
+});
+
+const validQuantity = function(acceptQuantity) {
+	if (acceptQuantity.value) {
+		validInput(inputQuantity);
+	} else {
+		alert('Veuillez renseigner un nombre');
+		invalidInput(inputQuantity);
+	}
+};
+
+// Modal Location Input ------------------------
+
+// const validLocation = function() {
+// 	if (input[(name = 'location')].checked) {
+// 		console.log('Vous avez bien choisi un tournoi');
+// 	}
+// };
+function validLocation() {
+	if (location1.checked) {
+		alert('Click');
+	}
+}
+console.log(location1.checked);
+
+// Modal Checkbox1 Input -----------------------
+
+inputCheckbox1.addEventListener('change', function() {
+	validCheckbox1(this);
+});
+
+const validCheckbox1 = function() {
+	if (!inputCheckbox1.checked) {
+		alert("Veuillez accepté les conditions d'utilisation");
+	}
+};
+
+// Modal Checkbox2 Input -----------------------
+
+inputCheckbox2.addEventListener('change', function() {
+	validCheckbox2(this);
+});
+
+const validCheckbox2 = function() {
+	if (inputCheckbox2.checked) {
+		alert('Vous serez prévenu lors des prochains événements');
 	}
 };

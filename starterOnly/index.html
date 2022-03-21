@@ -61,8 +61,9 @@
               name="reserve"
               action="index.html"
               method="get"
-              onsubmit="return validate();"
-            >
+              onsubmit="return validate();">
+
+              <!-- FirstName -->
               <div
                 class="formData">
                 <label>Prénom</label><br>
@@ -73,8 +74,11 @@
                   name="first"
                   minlength="2"
                   required
+                  
                 /><br>
               </div>
+
+              <!-- LastName -->
               <div
                 class="formData">
                 <label>Nom</label><br>
@@ -86,6 +90,8 @@
                   required
                 /><br>
               </div>
+
+              <!-- Email -->
               <div
                 class="formData">
                 <label>E-mail</label><br>
@@ -97,6 +103,8 @@
                   required
                 /><br>
               </div>
+
+              <!-- Birthdate -->
               <div
                 class="formData">
                 <label>Date de naissance</label><br>
@@ -108,20 +116,24 @@
                   required
                 /><br>
               </div>
+
+              <!-- Quantity -->
               <div
                 class="formData">
                 <label>À combien de tournois GameOn avez-vous déjà participé ?</label><br>
                 <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99" required>
               </div>
+
+              <!-- Location -->
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
               <div
-                class="formData" required>
+                class="formData">
                 <input
                   class="checkbox-input"
                   type="radio"
                   id="location1"
                   name="location"
-                  value="New York"
+                  value="New York"                  
                 />
                 <label class="checkbox-label" for="location1">
                   <span class="checkbox-icon"></span>
@@ -184,27 +196,34 @@
                 >
               </div>
 
+              <!-- Checkboxs -->
               <div
                 class="formData">
+
+                <!-- Checkbox1 -->
                 <input
                   class="checkbox-input"
                   type="checkbox"
                   id="checkbox1"
                   checked
-                  
+                  required                  
                 />
-                <label class="checkbox2-label" for="checkbox1" required>
+                <label class="checkbox2-label" for="checkbox1" >
                   <span class="checkbox-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
                 <br>
-                <input class="checkbox-input" type="checkbox" id="checkbox2" />
+                
+                <!-- Checkbox2 -->
+                <input class="checkbox-input" type="checkbox" id="checkbox2"/>
                 <label class="checkbox2-label" for="checkbox2">
                   <span class="checkbox-icon"></span>
                   Je souhaite être prévenu des prochains évènements.
                 </label>
                 <br>
               </div>
+
+              <!-- ValidButton -->
               <input
                 class="btn-submit"
                 type="submit"
