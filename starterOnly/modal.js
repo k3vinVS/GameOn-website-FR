@@ -14,14 +14,18 @@ const closeBtn = document.querySelector('.close');
 const modalBtn = document.querySelectorAll('.modal-btn');
 const formData = document.querySelectorAll('.formData');
 const form = document.querySelector('form');
+const inputs = document.querySelectorAll('input');
 const inputFirstName = document.querySelector('#first');
 const inputLastName = document.querySelector('#last');
 const inputEmail = document.querySelector('#email');
 const inputBirthday = document.querySelector('#birthdate');
 const inputQuantity = document.querySelector('#quantity');
-const inputLocation = document.querySelectorAll('input[name="location"]');
+const inputLocations = document.querySelectorAll('input[name="location"]');
 const inputCheckbox1 = document.querySelector('#checkbox1');
 const inputCheckbox2 = document.querySelector('#checkbox2');
+const validButton = document.querySelector('.btn-submit');
+let isConditionAccepted = true;
+// let isFormValid = false;
 
 // launch modal event ------------------------
 
@@ -60,11 +64,15 @@ inputFirstName.addEventListener('input', function() {
 });
 
 const validFirstName = function(acceptFirstName) {
+	let small = inputFirstName.nextElementSibling;
 	if (acceptFirstName.value) {
 		validInput(inputFirstName);
+		small.innerHTML = '';
+		return true;
 	} else if (!acceptFirstName.value) {
-		alert('Veuillez renseigner un prénom');
 		invalidInput(inputFirstName);
+		small.innerHTML = 'Veuillez renseigner un prénom';
+		return false;
 	}
 };
 
@@ -75,11 +83,16 @@ inputLastName.addEventListener('input', function() {
 });
 
 const validLastName = function(acceptLastName) {
+	let small = inputLastName.nextElementSibling;
+
 	if (acceptLastName.value) {
 		validInput(inputLastName);
+		small.innerHTML = '';
+		return true;
 	} else if (!acceptLastName.value) {
-		alert('Veuillez renseigner un nom');
 		invalidInput(inputLastName);
+		small.innerHTML = 'Veuillez renseigner un nom';
+		return false;
 	}
 };
 
@@ -91,29 +104,39 @@ inputEmail.addEventListener('change', function() {
 
 const validEmail = function(acceptEmail) {
 	let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$', 'g');
+	let small = inputEmail.nextElementSibling;
 
 	if (emailRegExp.test(acceptEmail.value)) {
 		validInput(inputEmail);
+		small.style.color = 'green';
+		small.innerHTML = 'Adresse email valide';
 		return true;
 	} else {
-		alert('Adresse email non valide');
 		invalidInput(inputEmail);
+		small.innerHTML = 'Adresse email non valide';
 		return false;
 	}
 };
 
 // Modal Birthday Input -----------------------
 
+// mettre en place d'un regex pour autoriser l'age
 inputBirthday.addEventListener('change', function() {
 	validBirthdate(this);
 });
 
 const validBirthdate = function(acceptBirthdate) {
+	let small = inputBirthday.nextElementSibling;
+
 	if (acceptBirthdate.value) {
 		validInput(inputBirthday);
+		small.style.color = 'green';
+		small.innerHTML = 'Date de naissance valide';
+		return true;
 	} else {
-		alert("Veuillez insérer une date d'anniversaire");
 		invalidInput(inputBirthday);
+		small.innerHTML = 'Date de naissance non indiquée';
+		return false;
 	}
 };
 
@@ -124,37 +147,77 @@ inputQuantity.addEventListener('change', function() {
 });
 
 const validQuantity = function(acceptQuantity) {
+	let small = inputQuantity.nextElementSibling;
 	if (acceptQuantity.value) {
 		validInput(inputQuantity);
+		return true;
 	} else {
-		alert('Veuillez renseigner un nombre');
 		invalidInput(inputQuantity);
+		small.innerHTML = 'Veuillez renseigner un nombre de participation';
+		return false;
 	}
 };
 
 // Modal Location Input ------------------------
 
-// const validLocation = function() {
-// 	if (input[(name = 'location')].checked) {
-// 		console.log('Vous avez bien choisi un tournoi');
+// function checkedButton() {
+// 	if (location1.checked) {
+// 		alert('Vous avez choisi New York');
+// 	} else if (location.checked) {
+// 		alert('Vous avez choisi San Francisco');
+// 	} else if (location3.checked) {
+// 		alert('Vous avez choisi Seattle');
+// 	} else if (location4.checked) {
+// 		alert('Vous avez choisi Chicago');
+// 	} else if (location5.checked) {
+// 		alert('Vous avez choisi Boston');
+// 	} else if (location6.checked) {
+// 		alert('Vous avez choisi Portland');
+// 	} else {
+// 		alert('Vous devez choisir une ville');
 // 	}
-// };
-function validLocation() {
-	if (location1.checked) {
-		alert('Click');
+// 	location1.addEventListener('click', function() {
+// 		if (this.checked);
+// 		alert('click1');
+// 	});
+// 	location2.addEventListener('click', function() {
+// 		if (this.checked);
+// 		alert('click2');
+// 	});
+// 	location3.addEventListener('click', function() {
+// 		if (this.checked);
+// 		alert('click3');
+// 	});
+// 	location4.addEventListener('click', function() {
+// 		if (this.checked);
+// 		alert('click4');
+// 	});
+// 	location5.addEventListener('click', function() {
+// 		if (this.checked);
+// 		alert('click5');
+// 	});
+// 	location6.addEventListener('click', function() {
+// 		if (this.checked);
+// 		alert('click6');
+// 	});
+// }
+
+form.addEventListener('click', function() {
+	for (let inputLocation of inputLocations) {
 	}
-}
-console.log(location1.checked);
+});
 
 // Modal Checkbox1 Input -----------------------
 
 inputCheckbox1.addEventListener('change', function() {
-	validCheckbox1(this);
+	isConditionAccepted = !isConditionAccepted;
 });
 
 const validCheckbox1 = function() {
-	if (!inputCheckbox1.checked) {
-		alert("Veuillez accepté les conditions d'utilisation");
+	if (inputCheckbox1.checked) {
+		return true;
+	} else {
+		return false;
 	}
 };
 
@@ -165,7 +228,35 @@ inputCheckbox2.addEventListener('change', function() {
 });
 
 const validCheckbox2 = function() {
+	let small = inputCheckbox2.nextElementSibling;
 	if (inputCheckbox2.checked) {
-		alert('Vous serez prévenu lors des prochains événements');
+		small.style.color = 'white';
+		small.innerHTML = 'Vous serez prévenu lors des prochains événements';
+		return true;
+	} else {
+		return false;
 	}
 };
+
+// Valid Form
+
+form.addEventListener('submit', function(e) {
+	e.preventDefault();
+
+	if (!isConditionAccepted) {
+		alert("Veuillez accepter les conditions d'utilisation");
+		return;
+	}
+	if (
+		validFirstName(inputFirstName) &&
+		validLastName(inputLastName) &&
+		validEmail(inputEmail) &&
+		validBirthdate(inputBirthday) &&
+		validQuantity(inputQuantity) &&
+		validCheckbox1(inputCheckbox1)
+	) {
+		alert('Formulaire envoyé');
+	} else {
+		alert('Veuillez remplir toutes les champs');
+	}
+});
