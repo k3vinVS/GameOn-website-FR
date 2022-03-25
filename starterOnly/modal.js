@@ -173,48 +173,6 @@ const validQuantity = function(acceptQuantity) {
 
 // Modal Location Input ------------------------
 
-// function checkedButton() {
-// 	if (location1.checked) {
-// 		alert('Vous avez choisi New York');
-// 	} else if (location.checked) {
-// 		alert('Vous avez choisi San Francisco');
-// 	} else if (location3.checked) {
-// 		alert('Vous avez choisi Seattle');
-// 	} else if (location4.checked) {
-// 		alert('Vous avez choisi Chicago');
-// 	} else if (location5.checked) {
-// 		alert('Vous avez choisi Boston');
-// 	} else if (location6.checked) {
-// 		alert('Vous avez choisi Portland');
-// 	} else {
-// 		alert('Vous devez choisir une ville');
-// 	}
-// 	location1.addEventListener('click', function() {
-// 		if (this.checked);
-// 		alert('click1');
-// 	});
-// 	location2.addEventListener('click', function() {
-// 		if (this.checked);
-// 		alert('click2');
-// 	});
-// 	location3.addEventListener('click', function() {
-// 		if (this.checked);
-// 		alert('click3');
-// 	});
-// 	location4.addEventListener('click', function() {
-// 		if (this.checked);
-// 		alert('click4');
-// 	});
-// 	location5.addEventListener('click', function() {
-// 		if (this.checked);
-// 		alert('click5');
-// 	});
-// 	location6.addEventListener('click', function() {
-// 		if (this.checked);
-// 		alert('click6');
-// 	});
-// }
-
 Locations.addEventListener('click', function() {
 	let selectedLocation;
 	for (let inputLocation of inputLocations) {
