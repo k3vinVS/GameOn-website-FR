@@ -21,11 +21,13 @@ const inputEmail = document.querySelector('#email');
 const inputBirthday = document.querySelector('#birthdate');
 const inputQuantity = document.querySelector('#quantity');
 const inputLocations = document.querySelectorAll('input[name="location"]');
+const Locations = document.querySelector('#Locations');
 const inputCheckbox1 = document.querySelector('#checkbox1');
 const inputCheckbox2 = document.querySelector('#checkbox2');
 const validButton = document.querySelector('.btn-submit');
 let isConditionAccepted = true;
-// let isFormValid = false;
+
+console.log(inputs);
 
 // launch modal event ------------------------
 
@@ -128,16 +130,27 @@ inputBirthday.addEventListener('change', function() {
 const validBirthdate = function(acceptBirthdate) {
 	let small = inputBirthday.nextElementSibling;
 
-	if (acceptBirthdate.value) {
-		validInput(inputBirthday);
-		small.style.color = 'green';
-		small.innerHTML = 'Date de naissance valide';
-		return true;
+	let pattern = /^([0-9]{2})-([0-9]{2})-([0-9]{4})$, g/;
+	// let testPattern = pattern.test(acceptBirthdate.value);
+	// console.log(testPattern);
+	if (pattern.test(acceptBirthdate)) {
+		alert('valid date');
 	} else {
 		invalidInput(inputBirthday);
-		small.innerHTML = 'Date de naissance non indiquée';
+		small.innerHTML = 'Date de naissance non valide';
 		return false;
 	}
+
+	// if (acceptBirthdate.value) {
+	// 	validInput(inputBirthday);
+	// 	small.style.color = 'green';
+	// 	small.innerHTML = 'Date de naissance valide';
+	// 	return true;
+	// } else {
+	// 	invalidInput(inputBirthday);
+	// 	small.innerHTML = 'Date de naissance non indiquée';
+	// 	return false;
+	// }
 };
 
 // Modal Quantity Input -----------------------
@@ -202,8 +215,14 @@ const validQuantity = function(acceptQuantity) {
 // 	});
 // }
 
-form.addEventListener('click', function() {
+Locations.addEventListener('click', function() {
+	let selectedLocation;
 	for (let inputLocation of inputLocations) {
+		if (inputLocation.checked) {
+			selectedLocation = inputLocation.value;
+			console.log(inputLocation.value);
+			return;
+		}
 	}
 });
 
@@ -241,7 +260,7 @@ const validCheckbox2 = function() {
 // Valid Form
 
 form.addEventListener('submit', function(e) {
-	e.preventDefault();
+	// e.preventDefault();
 
 	if (!isConditionAccepted) {
 		alert("Veuillez accepter les conditions d'utilisation");
@@ -258,5 +277,7 @@ form.addEventListener('submit', function(e) {
 		alert('Formulaire envoyé');
 	} else {
 		alert('Veuillez remplir toutes les champs');
+		e.preventDefault();
+		return false;
 	}
 });
