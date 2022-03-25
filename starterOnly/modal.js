@@ -127,31 +127,34 @@ inputBirthday.addEventListener('change', function() {
 	validBirthdate(this);
 });
 
-const validBirthdate = function(acceptBirthdate) {
+function validBirthdate() {
 	let small = inputBirthday.nextElementSibling;
+	let dateSaisie = inputBirthday.value;
+	let dt = new Date(dateSaisie);
+	//calculer la différence entre la date actuelle et la date saisie.
+	let dt_diff = Date.now() - dt.getTime();
+	let age_dt = new Date(dt_diff);
+	//extract year from date
+	let an = age_dt.getUTCFullYear();
+	//calculer maintenant l'âge de l'utilisateur
+	let age = Math.abs(an - 1970);
 
-	let pattern = /^([0-9]{2})-([0-9]{2})-([0-9]{4})$, g/;
-	// let testPattern = pattern.test(acceptBirthdate.value);
-	// console.log(testPattern);
-	if (pattern.test(acceptBirthdate)) {
-		alert('valid date');
-	} else {
+	if (age < 18) {
+		small.innerHTML = "Vous n'êtes pas majeur";
 		invalidInput(inputBirthday);
-		small.innerHTML = 'Date de naissance non valide';
 		return false;
+	} else if (dateSaisie == null || dateSaisie == '') {
+		invalidInput(inputBirthday);
+		small.style.color = 'red';
+		small.innerHTML = 'Veuillez indiquer une date de naissance valide';
+		return false;
+	} else {
+		validInput(inputBirthday);
+		small.style.color = 'green';
+		small.innerHTML = 'Age valide';
+		return true;
 	}
-
-	// if (acceptBirthdate.value) {
-	// 	validInput(inputBirthday);
-	// 	small.style.color = 'green';
-	// 	small.innerHTML = 'Date de naissance valide';
-	// 	return true;
-	// } else {
-	// 	invalidInput(inputBirthday);
-	// 	small.innerHTML = 'Date de naissance non indiquée';
-	// 	return false;
-	// }
-};
+}
 
 // Modal Quantity Input -----------------------
 
@@ -178,7 +181,6 @@ Locations.addEventListener('click', function() {
 	for (let inputLocation of inputLocations) {
 		if (inputLocation.checked) {
 			selectedLocation = inputLocation.value;
-			console.log(inputLocation.value);
 			return;
 		}
 	}
