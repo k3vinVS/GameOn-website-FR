@@ -14,7 +14,6 @@ const closeBtn = document.querySelector('.close');
 const modalBtn = document.querySelectorAll('.modal-btn');
 const formData = document.querySelectorAll('.formData');
 const form = document.querySelector('form');
-const inputs = document.querySelectorAll('input');
 const inputFirstName = document.querySelector('#first');
 const inputLastName = document.querySelector('#last');
 const inputEmail = document.querySelector('#email');
@@ -26,8 +25,6 @@ const inputCheckbox1 = document.querySelector('#checkbox1');
 const inputCheckbox2 = document.querySelector('#checkbox2');
 const validButton = document.querySelector('.btn-submit');
 let isConditionAccepted = true;
-
-console.log(inputs);
 
 // launch modal event ------------------------
 
@@ -67,11 +64,16 @@ inputFirstName.addEventListener('input', function() {
 
 const validFirstName = function(acceptFirstName) {
 	let small = inputFirstName.nextElementSibling;
-	if (acceptFirstName.value) {
+	let firstNameRegExp = new RegExp(
+		'^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð-]{2,}$',
+		'u'
+	);
+
+	if (firstNameRegExp.test(acceptFirstName.value)) {
 		validInput(inputFirstName);
 		small.innerHTML = '';
 		return true;
-	} else if (!acceptFirstName.value) {
+	} else {
 		invalidInput(inputFirstName);
 		small.innerHTML = 'Veuillez renseigner un prénom';
 		return false;
@@ -86,12 +88,16 @@ inputLastName.addEventListener('input', function() {
 
 const validLastName = function(acceptLastName) {
 	let small = inputLastName.nextElementSibling;
+	let lastNameRegExp = new RegExp(
+		'^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð-]{2,}$',
+		'u'
+	);
 
-	if (acceptLastName.value) {
+	if (lastNameRegExp.test(acceptLastName.value)) {
 		validInput(inputLastName);
 		small.innerHTML = '';
 		return true;
-	} else if (!acceptLastName.value) {
+	} else {
 		invalidInput(inputLastName);
 		small.innerHTML = 'Veuillez renseigner un nom';
 		return false;
@@ -115,6 +121,7 @@ const validEmail = function(acceptEmail) {
 		return true;
 	} else {
 		invalidInput(inputEmail);
+		small.style.color = 'red';
 		small.innerHTML = 'Adresse email non valide';
 		return false;
 	}
@@ -122,24 +129,24 @@ const validEmail = function(acceptEmail) {
 
 // Modal Birthday Input -----------------------
 
-// mettre en place d'un regex pour autoriser l'age
 inputBirthday.addEventListener('change', function() {
 	validBirthdate(this);
 });
 
-function validBirthdate() {
+const validBirthdate = function() {
 	let small = inputBirthday.nextElementSibling;
 	let dateSaisie = inputBirthday.value;
 	let dt = new Date(dateSaisie);
-	//calculer la différence entre la date actuelle et la date saisie.
+	// Calculer la différence entre la date actuelle et la date saisie.
 	let dt_diff = Date.now() - dt.getTime();
 	let age_dt = new Date(dt_diff);
-	//extract year from date
+	//Extraire l'année de la date
 	let an = age_dt.getUTCFullYear();
-	//calculer maintenant l'âge de l'utilisateur
+	// Calculer maintenant l'âge de l'utilisateur
 	let age = Math.abs(an - 1970);
 
 	if (age < 18) {
+		small.style.color = 'red';
 		small.innerHTML = "Vous n'êtes pas majeur";
 		invalidInput(inputBirthday);
 		return false;
@@ -154,7 +161,7 @@ function validBirthdate() {
 		small.innerHTML = 'Age valide';
 		return true;
 	}
-}
+};
 
 // Modal Quantity Input -----------------------
 
@@ -177,14 +184,19 @@ const validQuantity = function(acceptQuantity) {
 // Modal Location Input ------------------------
 
 Locations.addEventListener('click', function() {
+	validLocation(this);
+});
+
+const validLocation = function() {
 	let selectedLocation;
+
 	for (let inputLocation of inputLocations) {
 		if (inputLocation.checked) {
 			selectedLocation = inputLocation.value;
-			return;
+			return true;
 		}
 	}
-});
+};
 
 // Modal Checkbox1 Input -----------------------
 
@@ -220,21 +232,23 @@ const validCheckbox2 = function() {
 // Valid Form
 
 form.addEventListener('submit', function(e) {
-	// e.preventDefault();
-
 	if (!isConditionAccepted) {
 		alert("Veuillez accepter les conditions d'utilisation");
-		return;
+		e.preventDefault();
+		return false;
 	}
+
 	if (
 		validFirstName(inputFirstName) &&
 		validLastName(inputLastName) &&
 		validEmail(inputEmail) &&
 		validBirthdate(inputBirthday) &&
 		validQuantity(inputQuantity) &&
+		validLocation(inputLocations) &&
 		validCheckbox1(inputCheckbox1)
 	) {
 		alert('Formulaire envoyé');
+		return true;
 	} else {
 		alert('Veuillez remplir toutes les champs');
 		e.preventDefault();
