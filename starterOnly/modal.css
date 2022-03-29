@@ -27,6 +27,8 @@ p {
 }
 
 img {
+	width: auto;
+	height: auto;
 	padding-right: 1rem;
 }
 
@@ -197,12 +199,7 @@ input {
 .formData[data-error-visible="true"] .text-control {
 	border: 2px solid #e54858;
 }
-/* 
-input[data-error]::after {
-    content: attr(data-error);
-    font-size: 0.4em;
-    color: red;
-} */
+
 .checkbox-label,
 .checkbox2-label {
 	position: relative;
@@ -449,12 +446,33 @@ footer {
 	padding-right: 2vw;
 	margin: 0 20px;
 }
+
+@media screen and (min-width: 801px) and (max-width: 1017px) {
+	.main-navbar {
+		padding: 1rem;
+	}
+}
+@media screen and (min-width: 801px) {
+	.topnav a {
+		font-size: 92%;
+	}
+	.hero-content {
+		min-width: 240px;
+		padding: 51px 27px;
+	}
+	.hero-headline {
+		font-size: 5rem;
+	}
+	.hero-text {
+		width: 140%;
+	}
+}
 @media screen and (max-width: 800px) {
 	.main-navbar {
 		padding: 1rem;
 	}
 	.topnav a {
-		font-size: 17px;
+		font-size: 92%;
 	}
 	.hero-section {
 		display: block;

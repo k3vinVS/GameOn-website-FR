@@ -173,6 +173,7 @@ const validQuantity = function(acceptQuantity) {
 	let small = inputQuantity.nextElementSibling;
 	if (acceptQuantity.value) {
 		validInput(inputQuantity);
+		small.innerHTML = '';
 		return true;
 	} else {
 		invalidInput(inputQuantity);
@@ -250,7 +251,7 @@ form.addEventListener('submit', function(e) {
 		alert('Formulaire envoyé');
 		return true;
 	} else {
-		alert('Veuillez remplir toutes les champs');
+		alert('Veuillez remplir tous les champs');
 		e.preventDefault();
 		return false;
 	}
