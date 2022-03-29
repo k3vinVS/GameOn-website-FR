@@ -18,6 +18,7 @@ const inputFirstName = document.querySelector('#first');
 const inputLastName = document.querySelector('#last');
 const inputEmail = document.querySelector('#email');
 const inputBirthday = document.querySelector('#birthdate');
+const validContent = document.querySelector('#valid-content');
 const inputQuantity = document.querySelector('#quantity');
 const inputLocations = document.querySelectorAll('input[name="location"]');
 const Locations = document.querySelector('#Locations');
@@ -39,9 +40,21 @@ closeBtn.addEventListener('click', function() {
 function launchModal() {
 	modalbg.style.display = 'block';
 }
+
+function validForm() {
+	form.style.visibility = 'hidden';
+	validButton.value = 'Fermer';
+	validButton.style.visibility = 'visible';
+	validContent.style.visibility = 'visible';
+	validButton.addEventListener('click', function() {
+		modalbg.style.display = 'none';
+	});
+}
+
 function validInput(input) {
 	input.style.border = '2px solid green';
 }
+
 function invalidInput(input) {
 	input.style.border = '2px solid red';
 }
@@ -233,9 +246,10 @@ const validCheckbox2 = function() {
 // Valid Form
 
 form.addEventListener('submit', function(e) {
+	e.preventDefault();
+
 	if (!isConditionAccepted) {
 		alert("Veuillez accepter les conditions d'utilisation");
-		e.preventDefault();
 		return false;
 	}
 
@@ -248,11 +262,10 @@ form.addEventListener('submit', function(e) {
 		validLocation(inputLocations) &&
 		validCheckbox1(inputCheckbox1)
 	) {
-		alert('Formulaire envoyé');
+		validForm();
 		return true;
 	} else {
 		alert('Veuillez remplir tous les champs');
-		e.preventDefault();
 		return false;
 	}
 });

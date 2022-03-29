@@ -301,6 +301,11 @@ input {
 	cursor: pointer;
 	border: 0;
 }
+
+#valid-content {
+	margin: 3rem;
+	visibility: hidden;
+}
 /* custom select styles */
 .custom-select {
 	position: relative;
