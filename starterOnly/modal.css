@@ -452,11 +452,6 @@ footer {
 	margin: 0 20px;
 }
 
-@media screen and (min-width: 801px) and (max-width: 1017px) {
-	.main-navbar {
-		padding: 1rem;
-	}
-}
 @media screen and (min-width: 801px) {
 	.topnav a {
 		font-size: 92%;
@@ -473,9 +468,6 @@ footer {
 	}
 }
 @media screen and (max-width: 800px) {
-	.main-navbar {
-		padding: 1rem;
-	}
 	.topnav a {
 		font-size: 92%;
 	}
@@ -515,6 +507,12 @@ footer {
 	.copyrights {
 		margin-top: 50px;
 		text-align: center;
+	}
+}
+
+@media screen and (min-width: 769px) and (max-width: 1017px) {
+	.main-navbar {
+		margin: 1rem;
 	}
 }
 
@@ -570,6 +568,9 @@ footer {
 	}
 	.hero-headline {
 		font-size: 1.6rem;
+	}
+	.copyrights {
+		font-size: 0.9rem;
 	}
 }
 

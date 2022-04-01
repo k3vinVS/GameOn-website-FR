@@ -1,3 +1,4 @@
+// Permet l'affichage du menu hamburger lorsque l'affichage se réduit (responsive)
 function editNav() {
 	var x = document.getElementById('myTopnav');
 	if (x.className === 'topnav') {
@@ -29,18 +30,20 @@ let isConditionAccepted = true;
 
 // launch modal event ------------------------
 
-modalBtn.forEach((btn) => btn.addEventListener('click', launchModal));
-modalBody.addEventListener('click', cleanInput);
+modalBtn.forEach((btn) => btn.addEventListener('click', launchModal)); // Pour tous les boutons "je m'inscris", lancement du formulaire (fonction "launchModal")
+modalBody.addEventListener('click', cleanInput); // Permet de vider les inputs du formulaire à chaque clique de la div "modalBody" qui englobe le formulaire
 closeBtn.addEventListener('click', function() {
+	// Permet de fermer le formulaire grâce au bouton croix
 	modalbg.style.display = 'none';
 });
 
 // launch modal form -------------------------
 
 function launchModal() {
-	modalbg.style.display = 'block';
+	modalbg.style.display = 'block'; // Permet l'apparition du formulaire
 }
 
+// Permet d'afficher la fenêtre de validation du formulaire
 function validForm() {
 	form.style.visibility = 'hidden';
 	validButton.value = 'Fermer';
@@ -51,14 +54,17 @@ function validForm() {
 	});
 }
 
+// Valide d'une couleur verte les inputs du formulaire
 function validInput(input) {
 	input.style.border = '2px solid green';
 }
 
+// Invalide d'une couleur rouge les inputs du formulaire
 function invalidInput(input) {
 	input.style.border = '2px solid red';
 }
 
+// Permet de vider les inputs des couleurs affectées( valide ou non)
 function cleanInput() {
 	inputFirstName.style.border = 'none';
 	inputLastName.style.border = 'none';
@@ -71,10 +77,12 @@ function cleanInput() {
 
 // Modal firstName Input ---------------------
 
+// Ecoute de l'input du prénom
 inputFirstName.addEventListener('input', function() {
 	validFirstName(this);
 });
 
+// Vérifie que l'input est renseigné, et le regex permet d'autoriser certains caractères, avec un minimum de 2 lettres (mets de côté les chiffres)
 const validFirstName = function(acceptFirstName) {
 	let small = inputFirstName.nextElementSibling;
 	let firstNameRegExp = new RegExp(
@@ -95,10 +103,12 @@ const validFirstName = function(acceptFirstName) {
 
 // Modal lastName Input -----------------------
 
+// Ecoute de l'input du nom
 inputLastName.addEventListener('input', function() {
 	validLastName(this);
 });
 
+// Vérifie que l'input est renseigné, et le regex permet d'autoriser certains caractères, avec un minimum de 2 lettres (mets de côté les chiffres)
 const validLastName = function(acceptLastName) {
 	let small = inputLastName.nextElementSibling;
 	let lastNameRegExp = new RegExp(
@@ -119,10 +129,12 @@ const validLastName = function(acceptLastName) {
 
 // Modal Email Input -------------------------------
 
+// Ecoute de l'input de l'adresse email
 inputEmail.addEventListener('change', function() {
 	validEmail(this);
 });
 
+// Vérifie que l'input est renseigné, et le regex permet d'autoriser un certain nombre de caractères et l'obligation de symboles (comme toutes les adresses emails)
 const validEmail = function(acceptEmail) {
 	let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$', 'g');
 	let small = inputEmail.nextElementSibling;
@@ -142,10 +154,12 @@ const validEmail = function(acceptEmail) {
 
 // Modal Birthday Input -----------------------
 
+// Ecoute de l'input de la date d'anniversaire
 inputBirthday.addEventListener('change', function() {
 	validBirthdate(this);
 });
 
+// Vérifie que l'input est renseigné et que la date de naissance soit valide (personne majeure)
 const validBirthdate = function() {
 	let small = inputBirthday.nextElementSibling;
 	let dateSaisie = inputBirthday.value;
@@ -178,10 +192,12 @@ const validBirthdate = function() {
 
 // Modal Quantity Input -----------------------
 
+// Ecoute de l'input de la quantité de participation
 inputQuantity.addEventListener('change', function() {
 	validQuantity(this);
 });
 
+// Vérifie que l'input est renseigné, sinon message d'erreur
 const validQuantity = function(acceptQuantity) {
 	let small = inputQuantity.nextElementSibling;
 	if (acceptQuantity.value) {
@@ -197,10 +213,12 @@ const validQuantity = function(acceptQuantity) {
 
 // Modal Location Input ------------------------
 
+// Ecoute du choix de la ville
 Locations.addEventListener('click', function() {
 	validLocation(this);
 });
 
+// Vérifie quelle ville est sélectionnée
 const validLocation = function() {
 	let selectedLocation;
 
@@ -214,10 +232,12 @@ const validLocation = function() {
 
 // Modal Checkbox1 Input -----------------------
 
+// Ecoute du choix, si la case est sélectionnée ou non
 inputCheckbox1.addEventListener('change', function() {
 	isConditionAccepted = !isConditionAccepted;
 });
 
+// Vérifie si la case est sélectionné
 const validCheckbox1 = function() {
 	if (inputCheckbox1.checked) {
 		return true;
@@ -228,10 +248,12 @@ const validCheckbox1 = function() {
 
 // Modal Checkbox2 Input -----------------------
 
+// Ecoute du choix, si la case est sélectionnée ou non
 inputCheckbox2.addEventListener('change', function() {
 	validCheckbox2(this);
 });
 
+// Vérifie si la case est sélectionné
 const validCheckbox2 = function() {
 	let small = inputCheckbox2.nextElementSibling;
 	if (inputCheckbox2.checked) {
@@ -245,14 +267,17 @@ const validCheckbox2 = function() {
 
 // Valid Form
 
+// Ecoute du formulaire, si tous les inputs sont renseignés avant validation
 form.addEventListener('submit', function(e) {
 	e.preventDefault();
 
+	// Vérifie si la case est "checkée"
 	if (!isConditionAccepted) {
 		alert("Veuillez accepter les conditions d'utilisation");
 		return false;
 	}
 
+	// Vérifie que les inputs sont remplis et valide
 	if (
 		validFirstName(inputFirstName) &&
 		validLastName(inputLastName) &&
@@ -262,10 +287,10 @@ form.addEventListener('submit', function(e) {
 		validLocation(inputLocations) &&
 		validCheckbox1(inputCheckbox1)
 	) {
-		validForm();
+		validForm(); // Si le formulaire est valide, lacement de la fonction qui affiche la fenêtre de validation de celui-ci
 		return true;
 	} else {
-		alert('Veuillez remplir tous les champs');
+		alert('Veuillez remplir tous les champs'); // Indique que des inputs ne sont pas remplis ou invalides
 		return false;
 	}
 });
