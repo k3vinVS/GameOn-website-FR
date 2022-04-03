@@ -569,8 +569,13 @@ footer {
 	.hero-headline {
 		font-size: 1.6rem;
 	}
+	
 	.copyrights {
 		font-size: 0.9rem;
+	}
+	#valid-content {
+		font-size: 1rem;
+		margin: 1rem;
 	}
 }
 
