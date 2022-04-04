@@ -9,7 +9,9 @@ function editNav() {
 }
 
 // DOM Elements
+const topNav = document.querySelector('.topnav');
 const modalbg = document.querySelector('.bground');
+const content = document.querySelector('.content');
 const modalBody = document.querySelector('.modal-body');
 const closeBtn = document.querySelector('.close');
 const modalBtn = document.querySelectorAll('.modal-btn');
@@ -31,7 +33,7 @@ let isConditionAccepted = true;
 // launch modal event ------------------------
 
 modalBtn.forEach((btn) => btn.addEventListener('click', launchModal)); // Pour tous les boutons "je m'inscris", lancement du formulaire (fonction "launchModal")
-modalBody.addEventListener('click', cleanInput); // Permet de vider les inputs du formulaire à chaque clique de la div "modalBody" qui englobe le formulaire
+modalBody.addEventListener('click', cleanInput); // Permet d'enlever la coloration des inputs (validation ou erreur) du formulaire à chaque clique sur celui-ci
 closeBtn.addEventListener('click', function() {
 	// Permet de fermer le formulaire grâce au bouton croix
 	modalbg.style.display = 'none';
@@ -41,17 +43,6 @@ closeBtn.addEventListener('click', function() {
 
 function launchModal() {
 	modalbg.style.display = 'block'; // Permet l'apparition du formulaire
-}
-
-// Permet d'afficher la fenêtre de validation du formulaire
-function validForm() {
-	form.style.visibility = 'hidden';
-	validButton.value = 'Fermer';
-	validButton.style.visibility = 'visible';
-	validContent.style.visibility = 'visible';
-	validButton.addEventListener('click', function() {
-		modalbg.style.display = 'none';
-	});
 }
 
 // Valide d'une couleur verte les inputs du formulaire
@@ -72,6 +63,40 @@ function cleanInput() {
 	inputBirthday.style.border = 'none';
 	inputQuantity.style.border = 'none';
 }
+
+// Se mets en place si le formulaire est envoyé mais incomplet
+function erreur() {
+	if (
+		!validFirstName(inputFirstName) &&
+		!validLastName(inputLastName) &&
+		!validEmail(inputEmail) &&
+		!validBirthdate(inputBirthday) &&
+		!validQuantity(inputQuantity) &&
+		!validLocation(inputLocations) &&
+		!validCheckbox1(inputCheckbox1)
+	) {
+		return;
+	}
+}
+
+// Permet d'afficher la fenêtre de validation du formulaire
+function validForm() {
+	form.style.visibility = 'hidden';
+	validButton.value = 'Fermer';
+	validButton.style.visibility = 'visible';
+	validContent.style.visibility = 'visible';
+	validButton.addEventListener('click', function() {
+		modalbg.style.display = 'none';
+		document.querySelector('form').reset();
+	});
+}
+
+// Remise à zéro du formulaire
+// function resetForm() {
+// 	if (validForm) {
+// 		form.reset();
+// 	}
+// }
 
 // ---------------------------Modal Form -------------------------------
 
@@ -206,6 +231,7 @@ const validQuantity = function(acceptQuantity) {
 		return true;
 	} else {
 		invalidInput(inputQuantity);
+		small.style.color = 'red';
 		small.innerHTML = 'Veuillez renseigner un nombre de participation';
 		return false;
 	}
@@ -220,6 +246,7 @@ Locations.addEventListener('click', function() {
 
 // Vérifie quelle ville est sélectionnée
 const validLocation = function() {
+	let span = inputLocations.nextElementSibling;
 	let selectedLocation;
 
 	for (let inputLocation of inputLocations) {
@@ -228,6 +255,12 @@ const validLocation = function() {
 			return true;
 		}
 	}
+
+	// if (!inputLocations.checked) {
+	// 	span.innerHTML = 'Veuillez choisir une ville';
+	// 	span.style.color = 'red';
+	// 	return false;
+	// }
 };
 
 // Modal Checkbox1 Input -----------------------
@@ -290,7 +323,7 @@ form.addEventListener('submit', function(e) {
 		validForm(); // Si le formulaire est valide, lacement de la fonction qui affiche la fenêtre de validation de celui-ci
 		return true;
 	} else {
-		alert('Veuillez remplir tous les champs'); // Indique que des inputs ne sont pas remplis ou invalides
+		erreur(); // Se déclenche si les inputs ne sont pas renseignés
 		return false;
 	}
 });

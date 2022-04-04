@@ -137,7 +137,7 @@ main {
 }
 
 .content {
-	margin: 5% auto;
+	margin: 20% auto;
 	width: 100%;
 	max-width: 500px;
 	animation-name: modalopen;
@@ -416,7 +416,7 @@ input {
 .hero-text {
 	width: 146%;
 	font-weight: normal;
-	margin-top: 57px;
+	margin-top: 20px;
 	padding: 0;
 }
 .btn-signup {
@@ -497,7 +497,7 @@ footer {
 	}
 	.hero-img img {
 		border-radius: 10px;
-		margin-top: 40px;
+		margin-top: 20px;
 	}
 	.hero-section > .btn-signup {
 		display: block;
@@ -568,9 +568,15 @@ footer {
 	}
 	.hero-headline {
 		font-size: 1.6rem;
+		font-weight: bold;
 	}
+	
 	.copyrights {
 		font-size: 0.9rem;
+	}
+	#valid-content {
+		font-size: 1rem;
+		margin: 1rem;
 	}
 }
 
