@@ -167,6 +167,7 @@ label {
 	font-weight: normal;
 	display: inline-block;
 	margin-bottom: 11px;
+	margin-top: 0.5rem;
 }
 input {
 	padding: 8px;
@@ -182,9 +183,6 @@ input {
 	height: 48px;
 }
 
-#Locations.formData {
-	height: 6rem;
-}
 .formData[data-error]::after {
 	content: attr(data-error);
 	font-size: 0.4em;
@@ -208,8 +206,9 @@ input {
 .checkbox2-label {
 	position: relative;
 	margin-left: 36px;
-	font-size: 12px;
+	font-size: 14px;
 	font-weight: normal;
+	display: inline-block;
 }
 .checkbox-label .checkbox-icon,
 .checkbox2-label .checkbox-icon {
@@ -594,6 +593,9 @@ footer {
 }
 
 @media screen and (min-width: 320px) and (max-width: 539px) {
+	main {
+		text-align: unset;
+	}
 	.header-logo > img {
 		width: 14rem;
 	}
@@ -609,8 +611,7 @@ footer {
 		font-size: 0.9rem;
 	}
 	#valid-content {
-		font-size: 1rem;
-		margin: 1rem;
+		font-size: 1.3rem;
 	}
 }
 

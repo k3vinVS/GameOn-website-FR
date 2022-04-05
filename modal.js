@@ -44,7 +44,7 @@ closeBtn.addEventListener('click', function() {
 
 function launchModal() {
 	modalbg.style.display = 'block'; // Permet l'apparition du formulaire
-	modalbg.style.background = 'none';
+	modalbg.style.background = 'none'; // Permet la disparition du voile en arrière plan du formulaire
 }
 
 // Valide d'une couleur verte les inputs du formulaire
