@@ -25,6 +25,7 @@ const validContent = document.querySelector('#valid-content');
 const inputQuantity = document.querySelector('#quantity');
 const inputLocations = document.querySelectorAll('input[name="location"]');
 const Locations = document.querySelector('#Locations');
+const messageLocation = document.querySelector('#messageLocation');
 const inputCheckbox1 = document.querySelector('#checkbox1');
 const inputCheckbox2 = document.querySelector('#checkbox2');
 const validButton = document.querySelector('.btn-submit');
@@ -35,14 +36,15 @@ let isConditionAccepted = true;
 modalBtn.forEach((btn) => btn.addEventListener('click', launchModal)); // Pour tous les boutons "je m'inscris", lancement du formulaire (fonction "launchModal")
 modalBody.addEventListener('click', cleanInput); // Permet d'enlever la coloration des inputs (validation ou erreur) du formulaire à chaque clique sur celui-ci
 closeBtn.addEventListener('click', function() {
-	// Permet de fermer le formulaire grâce au bouton croix
-	modalbg.style.display = 'none';
+	modalbg.style.display = 'none'; // Permet de fermer le formulaire grâce au bouton croix
 });
+// validButton.addEventListener('click', validForm);
 
 // launch modal form -------------------------
 
 function launchModal() {
 	modalbg.style.display = 'block'; // Permet l'apparition du formulaire
+	modalbg.style.background = 'none';
 }
 
 // Valide d'une couleur verte les inputs du formulaire
@@ -81,22 +83,26 @@ function erreur() {
 
 // Permet d'afficher la fenêtre de validation du formulaire
 function validForm() {
+	form.reset();
 	form.style.visibility = 'hidden';
-	validButton.value = 'Fermer';
 	validButton.style.visibility = 'visible';
+	validButton.value = 'Fermer';
 	validContent.style.visibility = 'visible';
 	validButton.addEventListener('click', function() {
+		validContent.style.visibility = 'hidden';
+		form.style.visibility = 'visible';
+		validButton.value = "C'est parti";
 		modalbg.style.display = 'none';
-		document.querySelector('form').reset();
+		window.location.reload();
+	});
+	closeBtn.addEventListener('click', function() {
+		validContent.style.visibility = 'hidden';
+		form.style.visibility = 'visible';
+		validButton.value = "C'est parti";
+		modalbg.style.display = 'none';
+		window.location.reload();
 	});
 }
-
-// Remise à zéro du formulaire
-// function resetForm() {
-// 	if (validForm) {
-// 		form.reset();
-// 	}
-// }
 
 // ---------------------------Modal Form -------------------------------
 
@@ -246,21 +252,20 @@ Locations.addEventListener('click', function() {
 
 // Vérifie quelle ville est sélectionnée
 const validLocation = function() {
-	let span = inputLocations.nextElementSibling;
 	let selectedLocation;
 
 	for (let inputLocation of inputLocations) {
 		if (inputLocation.checked) {
 			selectedLocation = inputLocation.value;
+			messageLocation.innerHTML = '';
 			return true;
 		}
 	}
 
-	// if (!inputLocations.checked) {
-	// 	span.innerHTML = 'Veuillez choisir une ville';
-	// 	span.style.color = 'red';
-	// 	return false;
-	// }
+	if (!inputLocations.checked) {
+		messageLocation.innerHTML = 'Veuillez choisir une ville';
+		return false;
+	}
 };
 
 // Modal Checkbox1 Input -----------------------
