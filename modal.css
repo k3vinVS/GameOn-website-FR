@@ -70,6 +70,14 @@ img {
 	display: none;
 }
 
+.fa-bars {
+	color: red;
+}
+
+.fa-bars:hover {
+	color: white;
+}
+
 main {
 	font-size: 130%;
 	font-weight: bolder;
