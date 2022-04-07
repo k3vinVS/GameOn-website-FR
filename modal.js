@@ -45,6 +45,7 @@ closeBtn.addEventListener('click', function() {
 function launchModal() {
 	modalbg.style.display = 'block'; // Permet l'apparition du formulaire
 	modalbg.style.background = 'none'; // Permet la disparition du voile en arrière plan du formulaire
+	modalbg.style.top = '0';
 }
 
 // Valide d'une couleur verte les inputs du formulaire
@@ -85,7 +86,12 @@ function erreur() {
 function validForm() {
 	form.reset();
 	form.style.visibility = 'hidden';
+	form.style.height = '82vh';
 	validButton.style.visibility = 'visible';
+	validButton.style.position = 'absolute';
+	validButton.style.top = '88%';
+	validButton.style.right = '50%';
+	validButton.style.transform = 'translateX(50%)';
 	validButton.value = 'Fermer';
 	validContent.style.visibility = 'visible';
 	validButton.addEventListener('click', function() {

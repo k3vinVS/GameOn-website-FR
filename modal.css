@@ -308,7 +308,7 @@ input {
 /* Bouton validation formulaire */
 
 #valid-content {
-	font-size: 2rem;
+	font-size: 1.9rem;
 	font-weight: 500;
 	visibility: hidden;
 	position: absolute;
